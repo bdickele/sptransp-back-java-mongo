@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Bertrand DICKELE
  */
-public class EmployeeRepository extends SpTranspRepository {
+public class EmployeeRepository extends AbstractRepository {
 
     private static final String COLLECTION = "users";
 

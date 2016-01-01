@@ -14,10 +14,9 @@ db.createCollection("requests");
 db.counters.drop();
 db.createCollection("counters");
 
-db.counters.insert(
-    {_id: "requestId", seq: 0},
-    {_id: "userId", seq: 50}
-);
+db.counters.insert({_id: "requestId", seq: 0});
+db.counters.insert({_id: "agreementRuleId", seq: 0});
+db.counters.insert({_id: "userId", seq: 50});
 
 // ==== Goods ====
 

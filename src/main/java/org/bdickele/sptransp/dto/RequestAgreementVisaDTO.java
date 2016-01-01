@@ -16,6 +16,8 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
 
     private static final long serialVersionUID = 5984205835227083895L;
 
+    private Integer rank;
+
     private String employeeUid;
 
     private String employeeName;
@@ -24,12 +26,10 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
 
     private String departmentCode;
 
-    private String departmentName;
-
     private Integer seniority;
 
-    private String comment;
+    private String visaComment;
 
-    private String date;
+    private String creationDate;
 
 }

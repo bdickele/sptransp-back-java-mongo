@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by bdickele
  */
-public class DepartmentRepository extends SpTranspRepository {
+public class DepartmentRepository extends AbstractRepository {
 
     private static final String COLLECTION = "departments";
 

@@ -26,4 +26,10 @@ public class DepartmentDTO implements SpaceTranspDTO, Serializable {
     private String name;
 
 
+    public static DepartmentDTO buidl(String code, String name) {
+        DepartmentDTO d = new DepartmentDTO();
+        d.name = name;
+        d.code = code;
+        return d;
+    }
 }

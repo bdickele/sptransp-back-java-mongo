@@ -1,11 +1,15 @@
 package org.bdickele.sptransp.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.bdickele.sptransp.dto.converter.LocalDateTimeConverter;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,21 +23,25 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
     private static final long serialVersionUID = -3314219597285942969L;
 
     @MongoObjectId
-    protected String _id;
+    private String _id;
 
-    protected Long id;
+    private Long id;
 
-    protected Integer version;
+    private Integer version;
 
     private String reference;
 
-    private String creationDate;
+    @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
+    private LocalDateTime creationDate;
 
-    private Long creationDateForComparison;
+    //private Long creationDateForComparison;
 
-    private String updateDate;
+    @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
+    private LocalDateTime updateDate;
 
-    private Long updateDateForComparison;
+    //private Long updateDateForComparison;
 
     private String customerUid;
 
@@ -59,15 +67,16 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
 
     private String agreementStatusLabel;
 
-    private AgreementRuleVisaDTO nextExpectedAgreementVisa;
+    private Long ruleId;
 
-    // Detailed informations
+    private Integer ruleVersion;
+
+    private String cancellationComment;
 
     private Integer nextAgreementVisaRank;
 
     private List<RequestAgreementVisaDTO> appliedAgreementVisas;
 
     private List<AgreementRuleVisaDTO> requiredAgreementVisas;
-
 
 }

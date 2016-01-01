@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by bdickele
  */
-public class CustomerRepository extends SpTranspRepository {
+public class CustomerRepository extends AbstractRepository {
 
     private static final String COLLECTION = "users";
 

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by bdickele
  */
-public class SpTranspRepository {
+public class AbstractRepository {
 
     private DatabaseInfo databaseInfo;
 
