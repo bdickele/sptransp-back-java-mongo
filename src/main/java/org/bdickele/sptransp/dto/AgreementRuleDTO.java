@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +21,15 @@ import java.util.List;
 public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
 
     private static final long serialVersionUID = -4265473341596792743L;
+
+    @MongoObjectId
+    protected String _id;
+
+    @JsonProperty(value = "id")
+    protected Long id;
+
+    @JsonProperty(value = "version")
+    protected Integer version;
 
     @JsonProperty(value = "destinationCode")
     private String destinationCode;

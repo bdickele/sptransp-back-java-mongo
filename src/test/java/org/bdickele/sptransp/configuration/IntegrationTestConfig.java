@@ -1,7 +1,6 @@
 package org.bdickele.sptransp.configuration;
 
-import org.bdickele.sptransp.repository.GoodsRepository;
-import org.bdickele.sptransp.repository.UserRepository;
+import org.bdickele.sptransp.repository.*;
 import org.bdickele.sptransp.security.SpTranspUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +26,28 @@ public class IntegrationTestConfig {
     }
 
     @Bean
+    public DestinationRepository destinationRepository() {
+        return new DestinationRepository();
+    }
+
+    @Bean
+    public DepartmentRepository departmentRepository() {
+        return new DepartmentRepository();
+    }
+
+    @Bean
     public UserRepository userRepository() {
-        return new UserRepository() {
-        };
+        return new UserRepository();
+    }
+
+    @Bean
+    public EmployeeRepository employeeRepository() {
+        return new EmployeeRepository();
+    }
+
+    @Bean
+    public CustomerRepository customerRepository() {
+        return new CustomerRepository();
     }
 
     @Bean

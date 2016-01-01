@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.io.Serializable;
 
@@ -18,6 +19,9 @@ import java.io.Serializable;
 public class UserProfileDTO implements Serializable {
 
     private static final long serialVersionUID = 463285960555927346L;
+
+    @MongoObjectId
+    private String _id;
 
     @JsonProperty(value = "code")
     private String code;

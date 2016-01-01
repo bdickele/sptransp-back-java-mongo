@@ -1,5 +1,7 @@
 package org.bdickele.sptransp.dto;
 
+import org.bdickele.sptransp.dto.converter.LocalDateTimeConverter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,16 +10,14 @@ import java.time.format.DateTimeFormatter;
  */
 public interface SpaceTranspDTO {
 
-    DateTimeFormatter DEFAULT_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-    DateTimeFormatter DATE_FORMATTER_FOR_COMPARISON = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+    DateTimeFormatter DATE_TIME_FORMATTER_FOR_COMPARISON = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
 
     default String formatDate(LocalDateTime date) {
-        return date.format(DEFAULT_DATE_FORMATTER);
+        return date.format(LocalDateTimeConverter.DATE_TIME_FORMATTER);
     }
 
     default String formatDateForComparison(LocalDateTime date) {
-        return date.format(DATE_FORMATTER_FOR_COMPARISON);
+        return date.format(DATE_TIME_FORMATTER_FOR_COMPARISON);
     }
 }

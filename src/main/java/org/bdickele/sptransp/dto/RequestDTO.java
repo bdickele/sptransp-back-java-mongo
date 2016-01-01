@@ -3,6 +3,7 @@ package org.bdickele.sptransp.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +17,13 @@ import java.util.List;
 public class RequestDTO implements SpaceTranspDTO, Serializable {
 
     private static final long serialVersionUID = -3314219597285942969L;
+
+    @MongoObjectId
+    protected String _id;
+
+    protected Long id;
+
+    protected Integer version;
 
     private String reference;
 

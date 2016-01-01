@@ -1,8 +1,13 @@
 package org.bdickele.sptransp.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.bdickele.sptransp.dto.converter.LocalDateTimeConverter;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by Bertrand DICKELE
@@ -11,27 +16,29 @@ import lombok.Getter;
 @Getter
 public abstract class UserDTO implements SpaceTranspDTO {
 
-    @JsonProperty(value = "uid")
+    @MongoObjectId
+    protected String _id;
+
+    protected Long id;
+
+    protected Integer version;
+
     protected String uid;
 
     protected String password;
 
-    @JsonProperty(value = "profileCode")
+    protected String userType;
+
     protected String profileCode;
 
-    @JsonProperty(value = "profileLabel")
-    protected String profileLabel;
+    @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
+    protected LocalDateTime creationDate;
 
-    @JsonProperty(value = "creationDate")
-    protected String creationDate;
-
-    @JsonProperty(value = "creationUser")
     protected String creationUser;
+    @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
+    protected LocalDateTime updateDate;
 
-    @JsonProperty(value = "updateDate")
-    protected String updateDate;
-
-    @JsonProperty(value = "updateUser")
     protected String updateUser;
-
 }
