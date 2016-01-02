@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.bdickele.sptransp.domain.RequestAgreementVisaStatus;
+import org.bdickele.sptransp.domain.Seniority;
 import org.bdickele.sptransp.dto.converter.LocalDateTimeConverter;
+import org.bdickele.sptransp.dto.converter.SeniorityConverter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +37,9 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
 
     private String departmentCode;
 
-    private Integer seniority;
+    @JsonSerialize(using = SeniorityConverter.SenioritySerializer.class)
+    @JsonDeserialize(using = SeniorityConverter.SeniorityDeserializer.class)
+    private Seniority seniority;
 
     private String visaComment;
 
@@ -46,7 +50,7 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
 
     public static RequestAgreementVisaDTO build(EmployeeDTO employee, RequestAgreementVisaStatus status,
                                              Integer rank, String comment, String department,
-                                             Integer seniority, LocalDateTime creationDate) {
+                                             Seniority seniority, LocalDateTime creationDate) {
         RequestAgreementVisaDTO v = new RequestAgreementVisaDTO();
         v.employeeId = employee.getId();
         v.employeeUid = employee.getUid();

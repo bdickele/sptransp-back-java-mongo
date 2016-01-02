@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bdickele.sptransp.domain.RequestAgreementStatus;
 import org.bdickele.sptransp.domain.RequestAgreementVisaStatus;
 import org.bdickele.sptransp.domain.RequestOverallStatus;
+import org.bdickele.sptransp.domain.Seniority;
 import org.bdickele.sptransp.dto.converter.LocalDateTimeConverter;
 import org.bdickele.sptransp.dto.converter.RequestAgreementStatusConverter;
 import org.bdickele.sptransp.dto.converter.RequestOverallStatusConverter;
@@ -208,7 +209,7 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
                 .orElseThrow(() -> COULD_NOT_FIND_NEXT_EXPECTED_AGREEMENT_VISA.exception());
 
         String department = employee.getDepartmentCode();
-        Integer seniority = employee.getSeniority();
+        Seniority seniority = employee.getSeniority();
 
         if (!nextExpectedVisa.canBeAppliedBy(department, seniority)) {
             throw VISA_TO_APPLY_DOESNT_MATCH_NEXT_EXPECTED_ONE.exception(department, seniority,

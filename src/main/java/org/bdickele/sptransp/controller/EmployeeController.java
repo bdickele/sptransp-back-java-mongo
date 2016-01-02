@@ -1,7 +1,14 @@
 package org.bdickele.sptransp.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.bdickele.sptransp.dto.EmployeeDTO;
+import org.bdickele.sptransp.exception.SpTranspBizError;
+import org.bdickele.sptransp.repository.EmployeeRepository;
+import org.bdickele.sptransp.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Bertrand DICKELE
@@ -10,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/employees")
 public class EmployeeController extends AbstractController {
 
-    /*
     @Autowired
     private EmployeeRepository repository;
 
@@ -21,17 +27,17 @@ public class EmployeeController extends AbstractController {
     @RequestMapping(method= RequestMethod.GET,
             produces="application/json")
     public List<EmployeeDTO> employees() {
-        return EmployeeDTO.build(repository.findAllByOrderByFullNameAsc());
+        return repository.findAll();
     }
 
     @RequestMapping(value="/{uid}", method= RequestMethod.GET,
             produces="application/json")
     public EmployeeDTO employee(@PathVariable String uid) {
-        Employee employee = repository.findByUid(uid);
+        EmployeeDTO employee = repository.findByUid(uid);
         if (employee==null) {
             throw SpTranspBizError.EMPLOYEE_NOT_FOUND.exception(uid);
         }
-        return EmployeeDTO.build(employee);
+        return employee;
     }
 
     @RequestMapping(
@@ -39,9 +45,8 @@ public class EmployeeController extends AbstractController {
             consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public EmployeeDTO create(@RequestBody EmployeeDTO dto) {
-        Employee employee = service.create(dto.getFullName(), dto.getProfileCode(),
+        return service.create(dto.getFullName(), dto.getProfileCode(),
                 dto.getDepartmentCode(), dto.getSeniority(), TEMP_USER_UID);
-        return EmployeeDTO.build(employee);
     }
 
     @RequestMapping(
@@ -50,9 +55,7 @@ public class EmployeeController extends AbstractController {
             consumes="application/json")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeDTO update(@PathVariable String uid, @RequestBody EmployeeDTO dto) {
-        Employee employee = service.update(uid, dto.getFullName(), dto.getProfileCode(),
+        return service.update(uid, dto.getFullName(), dto.getProfileCode(),
                 dto.getDepartmentCode(), dto.getSeniority(), TEMP_USER_UID);
-        return EmployeeDTO.build(employee);
     }
-    */
 }

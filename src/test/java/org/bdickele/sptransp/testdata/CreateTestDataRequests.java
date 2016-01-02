@@ -130,7 +130,7 @@ public class CreateTestDataRequests extends AbstractCreateTestData {
         private EmployeeDTO get(AgreementRuleVisaDTO visa) {
             return employees.stream()
                     .filter(e -> visa.getDepartmentCode().equals(e.getDepartmentCode())
-                                    && e.getSeniority().compareTo(visa.getSeniority())>=0)
+                                    && e.getSeniority().ge(visa.getSeniority()))
                     .findAny()
                     .get();
         }

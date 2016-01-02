@@ -1,10 +1,13 @@
 package org.bdickele.sptransp.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.bdickele.sptransp.domain.Seniority;
+import org.bdickele.sptransp.dto.converter.SeniorityConverter;
 
 import java.io.Serializable;
 
@@ -23,7 +26,9 @@ public class AgreementRuleVisaDTO implements Serializable {
 
     private String departmentCode;
 
-    private Integer seniority;
+    @JsonSerialize(using = SeniorityConverter.SenioritySerializer.class)
+    @JsonDeserialize(using = SeniorityConverter.SeniorityDeserializer.class)
+    private Seniority seniority;
 
     /**
      * Build method for an agreement visa
@@ -36,11 +41,11 @@ public class AgreementRuleVisaDTO implements Serializable {
         AgreementRuleVisaDTO v = new AgreementRuleVisaDTO();
         v.rank = rank;
         v.departmentCode = department.getCode();
-        v.seniority = seniority.getValue();
+        v.seniority = seniority;
         return v;
     }
 
-    public boolean canBeAppliedBy(String departmentCode, Integer seniority) {
-        return this.departmentCode.equals(departmentCode) && (seniority.compareTo(this.seniority)>=0);
+    public boolean canBeAppliedBy(String departmentCode, Seniority seniority) {
+        return this.departmentCode.equals(departmentCode) && seniority.ge(this.seniority);
     }
 }

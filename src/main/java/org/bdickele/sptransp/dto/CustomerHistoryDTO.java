@@ -28,4 +28,15 @@ public class CustomerHistoryDTO {
     private String fullName;
 
     private String profileCode;
+
+
+    public static CustomerHistoryDTO build(CustomerDTO customer) {
+        CustomerHistoryDTO c = new CustomerHistoryDTO();
+        c.version = customer.getVersion();
+        c.fullName  = customer.getFullName();
+        c.profileCode = customer.getProfileCode();
+        c.versionDate = customer.getUpdateDate();
+        c.versionUser = customer.getUpdateUser();
+        return c;
+    }
 }

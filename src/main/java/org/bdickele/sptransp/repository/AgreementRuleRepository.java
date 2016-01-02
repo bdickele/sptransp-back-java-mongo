@@ -21,7 +21,7 @@ public class AgreementRuleRepository extends AbstractRepository {
         return getCollection().findOne("{destinationCode: {$eq: #}, goodsCode: {$eq: #}}", destinationCode, goodsCode).as(AgreementRuleDTO.class);
     }
 
-    public List<AgreementRuleDTO> findAll(String destinationCode) {
+    public List<AgreementRuleDTO> findAll() {
         MongoCursor<AgreementRuleDTO> cursor = getCollection().find().as(AgreementRuleDTO.class);
         return getList(cursor);
     }

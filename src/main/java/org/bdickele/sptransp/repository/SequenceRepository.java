@@ -12,6 +12,8 @@ public class SequenceRepository extends AbstractRepository {
 
     public static final String SEQUENCE_AGRREMENT_RULE = "agreementRuleId";
 
+    public static final String SEQUENCE_USER = "userId";
+
     private static final String COLLECTION = "counters";
 
     private MongoCollection getCollection() {
@@ -28,6 +30,10 @@ public class SequenceRepository extends AbstractRepository {
 
     public Long getNextSequenceValueForAgreementRule() {
         return getNextSequenceValue(SEQUENCE_AGRREMENT_RULE);
+    }
+
+    public Long getNextSequenceValueForUser() {
+        return getNextSequenceValue(SEQUENCE_USER);
     }
 
     private Long getNextSequenceValue(String sequenceName) {

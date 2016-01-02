@@ -1,7 +1,14 @@
 package org.bdickele.sptransp.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.bdickele.sptransp.dto.CustomerDTO;
+import org.bdickele.sptransp.exception.SpTranspBizError;
+import org.bdickele.sptransp.repository.CustomerRepository;
+import org.bdickele.sptransp.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Bertrand DICKELE
@@ -10,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customers")
 public class CustomerController extends AbstractController {
 
-    /*
     @Autowired
     private CustomerRepository repository;
 
@@ -21,17 +27,17 @@ public class CustomerController extends AbstractController {
     @RequestMapping(method= RequestMethod.GET,
             produces="application/json")
     public List<CustomerDTO> customers() {
-        return CustomerDTO.build(repository.findAllByOrderByFullNameAsc());
+        return repository.findAll();
     }
 
     @RequestMapping(value="/{uid}", method= RequestMethod.GET,
             produces="application/json")
     public CustomerDTO customer(@PathVariable String uid) {
-        Customer customer = repository.findByUid(uid);
+        CustomerDTO customer = repository.findByUid(uid);
         if (customer==null) {
             throw SpTranspBizError.CUSTOMER_NOT_FOUND.exception(uid);
         }
-        return CustomerDTO.build(customer);
+        return customer;
     }
 
     @RequestMapping(
@@ -39,8 +45,7 @@ public class CustomerController extends AbstractController {
             consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDTO create(@RequestBody CustomerDTO dto) {
-        Customer customer = service.create(dto.getFullName(), TEMP_USER_UID);
-        return CustomerDTO.build(customer);
+        return service.create(dto.getFullName(), TEMP_USER_UID);
     }
 
     @RequestMapping(
@@ -49,8 +54,6 @@ public class CustomerController extends AbstractController {
             consumes="application/json")
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO update(@PathVariable String uid, @RequestBody CustomerDTO dto) {
-        Customer customer = service.update(uid, dto.getFullName(), TEMP_USER_UID);
-        return CustomerDTO.build(customer);
+        return service.update(uid, dto.getFullName(), TEMP_USER_UID);
     }
-    */
 }
