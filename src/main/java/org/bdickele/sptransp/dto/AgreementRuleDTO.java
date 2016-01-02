@@ -23,9 +23,9 @@ import java.util.List;
  * Created by Bertrand DICKELE
  */
 @JsonPropertyOrder({"destinationCode", "goodsCode", "allowed",
-    "creationDate", "creationUser", "updateDate", "updateUser", "agreementVisas"})
+    "creationDate", "creationUser", "updateDate", "updateUser", "visas"})
 @EqualsAndHashCode(of = {"destinationCode", "goodsCode"}, doNotUseGetters = true)
-@ToString(of = {"destinationCode", "goodsCode", "allowed", "agreementVisas"})
+@ToString(of = {"destinationCode", "goodsCode", "allowed", "visas"})
 @Getter
 public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
 
@@ -44,7 +44,7 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
 
     private boolean allowed;
 
-    private List<AgreementRuleVisaDTO> agreementVisas;
+    private List<AgreementRuleVisaDTO> visas;
 
     @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
@@ -78,7 +78,7 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
         r.goodsCode = goods.getCode();
         r.allowed = allowed;
 
-        r.agreementVisas = new ArrayList<>();
+        r.visas = new ArrayList<>();
 
         LocalDateTime date = LocalDateTime.now();
         r.creationDate = date;
@@ -105,7 +105,7 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
         this.updateDate = LocalDateTime.now();
         version = version + 1;
 
-        this.agreementVisas.clear();
+        this.visas.clear();
         newVisas.forEach(p -> addVisa(p.getLeft(), p.getRight()));
 
         checkValues();
@@ -122,7 +122,7 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
      * @return
      */
     public AgreementRuleDTO addVisa(DepartmentDTO department, Seniority seniority) {
-        agreementVisas.add(AgreementRuleVisaDTO.build(agreementVisas.size(), department, seniority));
+        visas.add(AgreementRuleVisaDTO.build(visas.size(), department, seniority));
         return this;
     }
 
@@ -152,7 +152,7 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
     }
 
     public void checkAtLeastOneVisa() {
-        if (allowed && (agreementVisas==null || agreementVisas.isEmpty())) {
+        if (allowed && (visas==null || visas.isEmpty())) {
             throw SpTranspTechError.MISSING_INFORMATION.exception("required visas");
         }
     }

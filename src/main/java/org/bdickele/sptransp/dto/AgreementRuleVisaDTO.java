@@ -39,4 +39,8 @@ public class AgreementRuleVisaDTO implements Serializable {
         v.seniority = seniority.getValue();
         return v;
     }
+
+    public boolean canBeAppliedBy(String departmentCode, Integer seniority) {
+        return this.departmentCode.equals(departmentCode) && (seniority.compareTo(this.seniority)>=0);
+    }
 }

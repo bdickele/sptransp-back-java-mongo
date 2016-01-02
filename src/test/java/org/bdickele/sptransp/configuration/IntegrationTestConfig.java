@@ -3,6 +3,7 @@ package org.bdickele.sptransp.configuration;
 import org.bdickele.sptransp.repository.*;
 import org.bdickele.sptransp.security.SpTranspUserDetailsService;
 import org.bdickele.sptransp.service.AgreementRuleService;
+import org.bdickele.sptransp.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +58,11 @@ public class IntegrationTestConfig {
     }
 
     @Bean
+    public RequestRepository repository() {
+        return new RequestRepository();
+    }
+
+    @Bean
     public SequenceRepository sequenceRepository() {
         return new SequenceRepository();
     }
@@ -69,6 +75,11 @@ public class IntegrationTestConfig {
     @Bean
     public AgreementRuleService agreementRuleService() {
         return new AgreementRuleService();
+    }
+
+    @Bean
+    public RequestService requestService() {
+        return new RequestService();
     }
 
     @Bean

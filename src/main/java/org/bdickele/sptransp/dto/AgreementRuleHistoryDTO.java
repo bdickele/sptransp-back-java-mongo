@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"version", "versionDate", "versionUser", "destinationCode", "goodsCode", "allowed", "agreementVisas"})
-@EqualsAndHashCode(of = {"destinationCode", "goodsCode"}, doNotUseGetters = true)
-@ToString(of = {"destinationCode", "goodsCode", "allowed", "agreementVisas"})
+@JsonPropertyOrder({"version", "versionDate", "versionUser", "allowed", "visas"})
+@EqualsAndHashCode(of = {"version"}, doNotUseGetters = true)
+@ToString(of = {"version", "allowed", "visas"})
 @Getter
 public class AgreementRuleHistoryDTO implements SpaceTranspDTO, Serializable {
 
@@ -33,14 +33,14 @@ public class AgreementRuleHistoryDTO implements SpaceTranspDTO, Serializable {
 
     private boolean allowed;
 
-    private List<AgreementRuleVisaDTO> agreementVisas;
+    private List<AgreementRuleVisaDTO> visas;
 
 
     public static AgreementRuleHistoryDTO build(AgreementRuleDTO ruleDTO) {
         AgreementRuleHistoryDTO r = new AgreementRuleHistoryDTO();
         r.version = ruleDTO.getVersion();
         r.allowed = ruleDTO.isAllowed();
-        r.agreementVisas = ruleDTO.getAgreementVisas();
+        r.visas = ruleDTO.getVisas();
         r.versionDate = ruleDTO.getUpdateDate();
         r.versionUser = ruleDTO.getUpdateUser();
         return r;
