@@ -8,7 +8,7 @@ import org.bdickele.sptransp.repository.DestinationRepository;
 import org.bdickele.sptransp.repository.EmployeeRepository;
 import org.bdickele.sptransp.repository.GoodsRepository;
 import org.bdickele.sptransp.service.RequestService;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class CreateTestDataRequests extends AbstractCreateTestData {
     private DestinationGenerator destinationGenerator;
 
 
-    @Ignore
+    @Test
     public void createTestData() {
         deleteAllRequests();
         createRequests();
@@ -79,7 +79,7 @@ public class CreateTestDataRequests extends AbstractCreateTestData {
 
             if (nbVisas > 0) {
                 for (int j=0; j<nbVisas; j++) {
-                    AgreementRuleVisaDTO nextVisa = request.getNextExpectedAgreementVisa().get();
+                    AgreementRuleVisaDTO nextVisa = request.computeNextExpectedAgreementVisa().get();
                     EmployeeDTO employee = employeeGenerator.get(nextVisa);
                     //System.out.println("Application du visa " + nextVisa.toString() + " par " + employee.toString());
                     RequestAgreementVisaStatus visaStatus = RequestAgreementVisaStatus.GRANTED;

@@ -4,6 +4,7 @@ import org.bdickele.sptransp.domain.RequestAgreementStatus;
 import org.bdickele.sptransp.domain.RequestAgreementVisaStatus;
 import org.bdickele.sptransp.dto.RequestAgreementVisaDTO;
 import org.bdickele.sptransp.dto.RequestDTO;
+import org.bdickele.sptransp.dto.RequestWrapperDTO;
 import org.bdickele.sptransp.exception.SpTranspBizError;
 import org.bdickele.sptransp.repository.Pagination;
 import org.bdickele.sptransp.repository.RequestRepository;
@@ -53,54 +54,58 @@ public class RequestController extends AbstractController {
             value="/beingValidated",
             method= RequestMethod.GET,
             produces="application/json")
-    public List<RequestDTO> requestsBeingValidated(
+    public RequestWrapperDTO requestsBeingValidated(
             @RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(value = "size", required = false, defaultValue = DEFAULT_SIZE) int size) {
-        return getRequestsPerStatus(createPageRequest(page, size), PENDING);
+        return getRequestsPerStatus(createPagination(page, size), PENDING);
     }
 
     @RequestMapping(
             value="/beingValidated/{customerUid}",
             method= RequestMethod.GET,
             produces="application/json")
-    public List<RequestDTO> requestsBeingValidated(@PathVariable String customerUid,
+    public RequestWrapperDTO requestsBeingValidated(@PathVariable String customerUid,
                                                    @RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE) int page,
                                                    @RequestParam(value = "size", required = false, defaultValue = DEFAULT_SIZE) int size) {
-        return getRequestsPerCustomerAndStatus(createPageRequest(page, size), customerUid, PENDING);
+        return getRequestsPerCustomerAndStatus(createPagination(page, size), customerUid, PENDING);
     }
 
     @RequestMapping(
             value="/grantedOrRefused",
             method= RequestMethod.GET,
             produces="application/json")
-    public List<RequestDTO> requestsGrantedOrRefused(
+    public RequestWrapperDTO requestsGrantedOrRefused(
             @RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE) int page,
             @RequestParam(value = "size", required = false, defaultValue = DEFAULT_SIZE) int size) {
-        return getRequestsPerStatus(createPageRequest(page, size), GRANTED, REFUSED);
+        return getRequestsPerStatus(createPagination(page, size), GRANTED, REFUSED);
     }
 
     @RequestMapping(
             value="/grantedOrRefused/{customerUid}",
             method= RequestMethod.GET,
             produces="application/json")
-    public List<RequestDTO> requestsGrantedOrRefused(@PathVariable String customerUid,
+    public RequestWrapperDTO requestsGrantedOrRefused(@PathVariable String customerUid,
                                                      @RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE) int page,
                                                      @RequestParam(value = "size", required = false, defaultValue = DEFAULT_SIZE) int size) {
-        return getRequestsPerCustomerAndStatus(createPageRequest(page, size), customerUid, GRANTED, REFUSED);
+        return getRequestsPerCustomerAndStatus(createPagination(page, size), customerUid, GRANTED, REFUSED);
     }
 
-    private List<RequestDTO> getRequestsPerStatus(Pagination pagination, RequestAgreementStatus... agreementStatus) {
+    private RequestWrapperDTO getRequestsPerStatus(Pagination pagination, RequestAgreementStatus... agreementStatus) {
         List<RequestAgreementStatus> statusList = Arrays.asList(agreementStatus);
-        return repository.findByAgreementStatus(statusList, pagination);
+        int total = repository.getNumberOfRequestsByAgreementStatus(statusList);
+        List<RequestDTO> requests = repository.findByAgreementStatus(statusList, pagination);
+        return new RequestWrapperDTO(requests, pagination.pageIndex, pagination.pageSize, total);
     }
 
-    private Pagination createPageRequest(int page, int size) {
+    private RequestWrapperDTO getRequestsPerCustomerAndStatus(Pagination pagination, String customerUid, RequestAgreementStatus... agreementStatus) {
+        List<RequestAgreementStatus> statusList = Arrays.asList(agreementStatus);
+        int total = repository.getNumberOfRequestsByCustomerUidAndAgreementStatus(customerUid, statusList);
+        List<RequestDTO> requests = repository.findByCustomerUidAndAgreementStatus(customerUid, statusList, pagination);
+        return new RequestWrapperDTO(requests, pagination.pageIndex, pagination.pageSize, total);
+    }
+
+    private Pagination createPagination(int page, int size) {
         return new Pagination(page, size, "creationDate", 1);
-    }
-
-    private List<RequestDTO> getRequestsPerCustomerAndStatus(Pagination pagination, String customerUid, RequestAgreementStatus... agreementStatus) {
-        List<RequestAgreementStatus> statusList = Arrays.asList(agreementStatus);
-        return repository.findByCustomerUidAndAgreementStatus(customerUid, statusList, pagination);
     }
 
     @RequestMapping(
@@ -119,7 +124,7 @@ public class RequestController extends AbstractController {
     @ResponseStatus(HttpStatus.OK)
     public RequestDTO applyVisa(@PathVariable String requestReference, @RequestBody RequestAgreementVisaDTO dto) {
         RequestDTO request = service.update(requestReference, dto.getEmployeeUid(),
-                RequestAgreementVisaStatus.getByCode(dto.getStatusCode()), dto.getVisaComment());
+                RequestAgreementVisaStatus.getByCode(dto.getStatusCode()), dto.getComment());
         return request;
     }
 }

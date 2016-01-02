@@ -33,6 +33,8 @@ public abstract class UserDTO implements SpaceTranspDTO {
 
     protected String profileCode;
 
+    protected String profileName;
+
     @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
     protected LocalDateTime creationDate;

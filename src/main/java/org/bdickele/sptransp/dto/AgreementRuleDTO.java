@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"destinationCode", "goodsCode", "allowed",
+@JsonPropertyOrder({"destinationCode", "destinationName", "goodsCode", "goodsName", "allowed",
     "creationDate", "creationUser", "updateDate", "updateUser", "visas"})
 @EqualsAndHashCode(of = {"destinationCode", "goodsCode"}, doNotUseGetters = true)
 @ToString(of = {"destinationCode", "goodsCode", "allowed", "visas"})
@@ -40,7 +40,11 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
 
     private String destinationCode;
 
+    private String destinationName;
+
     private String goodsCode;
+
+    private String goodsName;
 
     private boolean allowed;
 
@@ -75,7 +79,9 @@ public class AgreementRuleDTO implements SpaceTranspDTO, Serializable {
         r.id = id;
         r.version = 1;
         r.destinationCode = destination.getCode();
+        r.destinationName = destination.getName();
         r.goodsCode = goods.getCode();
+        r.goodsName = goods.getName();
         r.allowed = allowed;
 
         r.visas = new ArrayList<>();

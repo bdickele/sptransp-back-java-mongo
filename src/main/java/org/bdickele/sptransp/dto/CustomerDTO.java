@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"uid", "fullName", "profileCode", "creationDate", "creationUser", "updateDate", "updateUser"})
+@JsonPropertyOrder({"uid", "fullName", "profileCode", "profileName",
+        "creationDate", "creationUser", "updateDate", "updateUser"})
 @EqualsAndHashCode(callSuper = true, of = {}, doNotUseGetters = true)
 @Getter
 public class CustomerDTO extends UserDTO implements Serializable {
@@ -37,6 +38,7 @@ public class CustomerDTO extends UserDTO implements Serializable {
         c.uid = uid;
         c.userType = UserType.CUSTOMER.getCode();
         c.profileCode = UserProfile.CUSTOMER.getCode();
+        c.profileName = UserProfile.CUSTOMER.getLabel();
         c.fullName = fullName;
 
         LocalDateTime date = LocalDateTime.now();

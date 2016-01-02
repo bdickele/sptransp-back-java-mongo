@@ -1,5 +1,6 @@
 package org.bdickele.sptransp.dto;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
@@ -31,7 +32,7 @@ import static org.bdickele.sptransp.exception.SpTranspBizError.*;
  */
 @EqualsAndHashCode(of = "reference", doNotUseGetters = true)
 @ToString(of = {"reference", "customerUid", "departureCode", "arrivalCode", "goodsCode",
-        "overallStatus", "agreementStatus", "creationDate"}, doNotUseGetters = true)
+        "overallStatusCode", "agreementStatusCode", "creationDate"}, doNotUseGetters = true)
 @Getter
 public class RequestDTO implements SpaceTranspDTO, Serializable {
 
@@ -53,7 +54,7 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
 
     private String creationUser;
 
-    //private Long creationDateForComparison;
+    private Long creationDateForComparison;
 
     @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
@@ -61,7 +62,7 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
 
     private String updateUser;
 
-    //private Long updateDateForComparison;
+    private Long updateDateForComparison;
 
     private String customerUid;
 
@@ -81,27 +82,41 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
 
     @JsonSerialize(using = RequestOverallStatusConverter.RequestOverallStatusSerializer.class)
     @JsonDeserialize(using = RequestOverallStatusConverter.RequestOverallStatusDeserializer.class)
-    private RequestOverallStatus overallStatus;
+    private RequestOverallStatus overallStatusCode;
 
     @JsonSerialize(using = RequestAgreementStatusConverter.RequestAgreementStatusSerializer.class)
     @JsonDeserialize(using = RequestAgreementStatusConverter.RequestAgreementStatusDeserializer.class)
-    private RequestAgreementStatus agreementStatus;
+    private RequestAgreementStatus agreementStatusCode;
 
     private String cancellationComment;
 
     private Integer nextAgreementVisaRank;
 
+    private AgreementRuleVisaDTO nextExpectedAgreementVisa;
+
     private AgreementRuleHistoryDTO agreementRule;
 
     private List<RequestAgreementVisaDTO> appliedAgreementVisas;
 
+    private List<AgreementRuleVisaDTO> requiredAgreementVisas;
+
+
+    @JsonGetter("overallStatusLabel")
+    public String getOverallStatusLabel() {
+        return overallStatusCode.getLabel();
+    }
+
+    @JsonGetter("agreementStatusLabel")
+    public String getAgreementStatusLabel() {
+        return agreementStatusCode.getLabel();
+    }
 
     /**
      * @return Next expected agreement visa (if any)
      */
-    public Optional<AgreementRuleVisaDTO> getNextExpectedAgreementVisa() {
+    public Optional<AgreementRuleVisaDTO> computeNextExpectedAgreementVisa() {
         return agreementRule.getVisas().stream()
-                .filter(v -> v.getRank().equals(nextAgreementVisaRank))
+                .filter(v -> v.getRank().compareTo(nextAgreementVisaRank)==0)
                 .findFirst();
     }
 
@@ -119,15 +134,20 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
         r.departureName = departure.getName();
         r.arrivalCode = arrival.getCode();
         r.arrivalName = arrival.getName();
-        r.overallStatus = RequestOverallStatus.WAITING_FOR_VALIDATION;
-        r.agreementStatus = RequestAgreementStatus.PENDING;
+        r.overallStatusCode = RequestOverallStatus.WAITING_FOR_VALIDATION;
+        r.agreementStatusCode = RequestAgreementStatus.PENDING;
         r.nextAgreementVisaRank = 0;
         r.agreementRule = ruleVersion;
         r.appliedAgreementVisas = new ArrayList<>();
+        r.requiredAgreementVisas = ruleVersion.getVisas();
+
+        r.nextExpectedAgreementVisa = r.computeNextExpectedAgreementVisa().orElse(null);
 
         LocalDateTime date = LocalDateTime.now();
         r.creationDate = date;
+        r.creationDateForComparison = Long.valueOf(r.formatDateForComparison(date));
         r.updateDate = date;
+        r.updateDateForComparison = Long.valueOf(r.formatDateForComparison(date));
 
         String customerUid = customer.getUid();
         r.creationUser = customerUid;
@@ -205,26 +225,28 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
             throw EMPLOYEE_HAS_ALREADY_APPLIED_A_VISA.exception(employee.getFullName());
         }
 
-        AgreementRuleVisaDTO nextExpectedVisa = getNextExpectedAgreementVisa()
+        AgreementRuleVisaDTO nextExpectedVisa = computeNextExpectedAgreementVisa()
                 .orElseThrow(() -> COULD_NOT_FIND_NEXT_EXPECTED_AGREEMENT_VISA.exception());
 
-        String department = employee.getDepartmentCode();
+        String departmentCode = employee.getDepartmentCode();
         Seniority seniority = employee.getSeniority();
 
-        if (!nextExpectedVisa.canBeAppliedBy(department, seniority)) {
-            throw VISA_TO_APPLY_DOESNT_MATCH_NEXT_EXPECTED_ONE.exception(department, seniority,
+        if (!nextExpectedVisa.canBeAppliedBy(departmentCode, seniority)) {
+            throw VISA_TO_APPLY_DOESNT_MATCH_NEXT_EXPECTED_ONE.exception(departmentCode, seniority,
                     nextExpectedVisa.getDepartmentCode(), nextExpectedVisa.getSeniority());
         }
 
         LocalDateTime now = LocalDateTime.now();
 
         RequestAgreementVisaDTO appliedVisa = RequestAgreementVisaDTO.build(employee, visaStatus,
-                nextAgreementVisaRank, comment, department, seniority, now);
+                nextAgreementVisaRank, comment, departmentCode, employee.getDepartmentName(), seniority, now);
 
         addAgreementVisa(appliedVisa);
 
         updateUser = employee.getUid();
         updateDate = now;
+        updateDateForComparison = Long.valueOf(formatDateForComparison(now));
+        nextExpectedAgreementVisa = computeNextExpectedAgreementVisa().orElse(null);
 
         return this;
     }
@@ -242,8 +264,8 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
         // If last visa applied has been denied, no need to carry on: request is refused
         if (lastAppliedVisaStatus == RequestAgreementVisaStatus.DENIED) {
             nextAgreementVisaRank = -1;
-            agreementStatus = RequestAgreementStatus.REFUSED;
-            overallStatus = RequestOverallStatus.REFUSED;
+            agreementStatusCode = RequestAgreementStatus.REFUSED;
+            overallStatusCode = RequestOverallStatus.REFUSED;
         } else if (lastAppliedVisaStatus == RequestAgreementVisaStatus.GRANTED) {
             // Let's check if granted visa is the last one
             Integer rankOfLastExpectedVisa = agreementRule.getVisas().stream()
@@ -252,8 +274,8 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
 
             if (appliedVisa.getRank().equals(rankOfLastExpectedVisa)) {
                 nextAgreementVisaRank = -1;
-                agreementStatus = RequestAgreementStatus.GRANTED;
-                overallStatus = RequestOverallStatus.VALIDATED;
+                agreementStatusCode = RequestAgreementStatus.GRANTED;
+                overallStatusCode = RequestOverallStatus.VALIDATED;
             } else {
                 nextAgreementVisaRank++;
             }
@@ -267,7 +289,7 @@ public class RequestDTO implements SpaceTranspDTO, Serializable {
      * @return True if that request is still waiting for an agreement visa
      */
     public boolean waitsForAnAgreementVisa() {
-        return agreementStatus==RequestAgreementStatus.PENDING;
+        return agreementStatusCode==RequestAgreementStatus.PENDING;
     }
 
     /**

@@ -4,12 +4,14 @@ import org.bdickele.sptransp.domain.UserType;
 import org.bdickele.sptransp.dto.CustomerDTO;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by bdickele
  */
+@Repository
 public class CustomerRepository extends AbstractRepository {
 
     private static final String COLLECTION = "users";

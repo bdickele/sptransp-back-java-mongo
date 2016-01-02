@@ -80,7 +80,7 @@ public class RequestService extends AbstractService {
         request.applyAgreementVisa(employee, visaStatus, comment);
         request.setVersion(request.getVersion() + 1);
 
-        getCollection().update("{id: #}", request.getId()).with(request);
+        getCollection().update("{id: #}", request.getId()).upsert().with(request);
 
         return request;
     }

@@ -1,6 +1,5 @@
 package org.bdickele.sptransp.dto;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"rank", "employeeId", "employeeUid", "employeeName", "statusCode", "departmentCode", "seniority", "visaComment", "creationDate"})
 @ToString(of = {"departmentCode", "seniority", "employeeUid"})
 @EqualsAndHashCode(of = {"employeeUid", "statusCode", "departmentCode", "seniority"}, doNotUseGetters = true)
 @Getter
@@ -37,19 +35,21 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
 
     private String departmentCode;
 
+    private String departmentName;
+
     @JsonSerialize(using = SeniorityConverter.SenioritySerializer.class)
     @JsonDeserialize(using = SeniorityConverter.SeniorityDeserializer.class)
     private Seniority seniority;
 
-    private String visaComment;
+    private String comment;
 
     @JsonSerialize(using = LocalDateTimeConverter.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeConverter.LocalDateTimeDeserializer.class)
-    private LocalDateTime creationDate;
+    private LocalDateTime date;
 
 
     public static RequestAgreementVisaDTO build(EmployeeDTO employee, RequestAgreementVisaStatus status,
-                                             Integer rank, String comment, String department,
+                                             Integer rank, String comment, String departmentCode, String departmentName,
                                              Seniority seniority, LocalDateTime creationDate) {
         RequestAgreementVisaDTO v = new RequestAgreementVisaDTO();
         v.employeeId = employee.getId();
@@ -57,10 +57,11 @@ public class RequestAgreementVisaDTO implements SpaceTranspDTO, Serializable {
         v.employeeName = employee.getFullName();
         v.statusCode = status.getCode();
         v.rank = rank;
-        v.visaComment = comment;
-        v.departmentCode = department;
+        v.comment = comment;
+        v.departmentCode = departmentCode;
+        v.departmentName = departmentName;
         v.seniority = seniority;
-        v.creationDate = creationDate;
+        v.date = creationDate;
         return v;
     }
 }

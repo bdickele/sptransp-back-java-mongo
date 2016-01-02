@@ -1,6 +1,5 @@
 package org.bdickele.sptransp.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,9 +14,9 @@ import java.util.stream.Collectors;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"code", "label"})
+@JsonPropertyOrder({"code", "name"})
 @EqualsAndHashCode(of = "code", doNotUseGetters = true)
-@ToString(of = {"code", "label"}, doNotUseGetters = true)
+@ToString(of = {"code", "name"}, doNotUseGetters = true)
 @Getter
 public class UserProfileDTO implements Serializable {
 
@@ -26,16 +25,14 @@ public class UserProfileDTO implements Serializable {
     @MongoObjectId
     private String _id;
 
-    @JsonProperty(value = "code")
     private String code;
 
-    @JsonProperty(value = "label")
-    private String label;
+    private String name;
 
     public static UserProfileDTO build(UserProfile profile) {
         UserProfileDTO dto = new UserProfileDTO();
         dto.code = profile.getCode();
-        dto.label = profile.getLabel();
+        dto.name = profile.getLabel();
         return dto;
     }
 

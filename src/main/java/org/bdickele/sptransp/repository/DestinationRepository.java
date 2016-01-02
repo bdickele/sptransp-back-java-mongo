@@ -3,12 +3,14 @@ package org.bdickele.sptransp.repository;
 import org.bdickele.sptransp.dto.DestinationDTO;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by bdickele
  */
+@Repository
 public class DestinationRepository extends AbstractRepository {
 
     private static final String COLLECTION = "destinations";

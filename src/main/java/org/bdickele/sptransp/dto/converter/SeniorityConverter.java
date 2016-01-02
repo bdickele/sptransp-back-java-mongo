@@ -21,7 +21,7 @@ public class SeniorityConverter {
         @Override
         public void serialize(Seniority seniority, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
                 throws IOException, JsonProcessingException {
-            jsonGenerator.writeString(seniority.getValue().toString());
+            jsonGenerator.writeNumber(seniority.getValue());
         }
     }
 
@@ -30,7 +30,7 @@ public class SeniorityConverter {
         @Override
         public Seniority deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             try {
-                return Seniority.of(Integer.getInteger(jsonParser.getText()));
+                return Seniority.of(jsonParser.getNumberValue().intValue());
             } catch (Exception e) {
                 return Seniority.of(0);
             }

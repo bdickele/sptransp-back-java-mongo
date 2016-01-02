@@ -14,9 +14,9 @@ import java.io.Serializable;
 /**
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"rank", "departmentCode", "seniority"})
+@JsonPropertyOrder({"rank", "departmentCode", "departmentName", "seniority"})
 @EqualsAndHashCode(of = {"departmentCode", "seniority"}, doNotUseGetters = true)
-@ToString(of = {"departmentCode", "seniority"})
+@ToString(of = {"departmentCode", "departmentName", "seniority"})
 @Getter
 public class AgreementRuleVisaDTO implements Serializable {
 
@@ -25,6 +25,8 @@ public class AgreementRuleVisaDTO implements Serializable {
     private Integer rank;
 
     private String departmentCode;
+
+    private String departmentName;
 
     @JsonSerialize(using = SeniorityConverter.SenioritySerializer.class)
     @JsonDeserialize(using = SeniorityConverter.SeniorityDeserializer.class)
@@ -41,6 +43,7 @@ public class AgreementRuleVisaDTO implements Serializable {
         AgreementRuleVisaDTO v = new AgreementRuleVisaDTO();
         v.rank = rank;
         v.departmentCode = department.getCode();
+        v.departmentName = department.getName();
         v.seniority = seniority;
         return v;
     }

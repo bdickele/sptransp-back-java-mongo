@@ -23,7 +23,7 @@ import java.util.List;
  * Employee object returned by web services
  * Created by Bertrand DICKELE
  */
-@JsonPropertyOrder({"uid", "fullName", "profileCode", "departmentCode", "departmentLabel",
+@JsonPropertyOrder({"uid", "fullName", "profileCode", "profileName", "departmentCode", "departmentName",
         "seniority", "creationDate", "creationUser", "updateDate", "updateUser"})
 @EqualsAndHashCode(callSuper = true, of = {}, doNotUseGetters = true)
 @Getter
@@ -39,7 +39,7 @@ public class EmployeeDTO extends UserDTO implements Serializable {
 
     private String departmentCode;
 
-    private String departmentLabel;
+    private String departmentName;
 
     @JsonSerialize(using = SeniorityConverter.SenioritySerializer.class)
     @JsonDeserialize(using = SeniorityConverter.SeniorityDeserializer.class)
@@ -58,9 +58,10 @@ public class EmployeeDTO extends UserDTO implements Serializable {
         e.uid = uid;
         e.userType = UserType.EMPLOYEE.getCode();
         e.profileCode = profile.getCode();
+        e.profileName = profile.getLabel();
         e.fullName = fullName;
         e.departmentCode = department.getCode();
-        e.departmentLabel = department.getName();
+        e.departmentName = department.getName();
         e.seniority = seniority;
 
         LocalDateTime date = LocalDateTime.now();
@@ -82,8 +83,9 @@ public class EmployeeDTO extends UserDTO implements Serializable {
         this.version = this.version + 1;
         this.fullName = fullName;
         this.profileCode = profile.getCode();
+        this.profileName = profile.getLabel();
         this.departmentCode = department.getCode();
-        this.departmentLabel = department.getName();
+        this.departmentName = department.getName();
         this.seniority = seniority;
         this.updateUser = updateUser;
         this.updateDate = LocalDateTime.now();

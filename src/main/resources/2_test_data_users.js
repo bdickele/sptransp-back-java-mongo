@@ -1,5 +1,5 @@
 var conn = new Mongo();
-var db = conn.getDB("sptransp_test");
+var db = conn.getDB("sptransp");
 
 db.users.drop();
 db.createCollection("users");
@@ -7,93 +7,93 @@ db.createCollection("users");
 // ==== Employees ====
 
 db.users.insert({id: 1, version: 1, userType: "E", uid: "kvcquz31", password: "changeme", fullName: "Kathleen Carpenter",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentLabel: "Law compliance", seniority: 20, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", full_name: "Kathleen Carpenter", profileCode: "AGR_VISA_APPLIER", departmentCode: "LAW_COMPLIANCE", seniority: 20}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentName: "Law compliance", seniority: 20, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", full_name: "Kathleen Carpenter", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "LAW_COMPLIANCE", seniority: 20}
     ]});
 
 db.users.insert({id: 2, version: 1, userType: "E", uid: "whlofu42", password: "changeme", fullName: "Helen Cox",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentLabel: "Shuttle compliance", seniority: 20, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", full_name: "Helen Cox", profileCode: "AGR_VISA_APPLIER", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 20}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentName: "Shuttle compliance", seniority: 20, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", full_name: "Helen Cox", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 20}
     ]});
 
 db.users.insert({id: 3, version: 1, userType: "E", uid: "xhtqyi65", password: "changeme", fullName: "Paula Spencer",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentLabel: "Goods inspection", seniority: 20, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Paula Spencer", profileCode: "AGR_VISA_APPLIER", departmentCode: "GOODS_INSPECTION", seniority: 20}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentName: "Goods inspection", seniority: 20, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Paula Spencer", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "GOODS_INSPECTION", seniority: 20}
     ]});
 
 db.users.insert({id: 4, version: 1, userType: "E", uid: "xzjwsm38", password: "changeme", fullName: "Juan Hughes",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentLabel: "Journey supervision", seniority: 20, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Juan Hughes", profileCode: "AGR_VISA_APPLIER", departmentCode: "JOURNEY_SUPERVISION", seniority: 20}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentName: "Journey supervision", seniority: 20, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Juan Hughes", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "JOURNEY_SUPERVISION", seniority: 20}
     ]});
 
 db.users.insert({id: 5, version: 1, userType: "E", uid: "loncvj78", password: "changeme", fullName: "Ashley Wheeler",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "HR", departmentLabel: "Human resources", seniority: 20, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Ashley Wheeler", profileCode: "AGR_VISA_APPLIER", departmentCode: "HR", seniority: 20}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "HR", departmentName: "Human resources", seniority: 20, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Ashley Wheeler", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "HR", seniority: 20}
     ]});
 
 db.users.insert({id: 6, version: 1, userType: "E", uid: "tbikem91", password: "changeme", fullName: "Ruby Rogers",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentLabel: "Law compliance", seniority: 60, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Ruby Rogers", profileCode: "AGR_VISA_APPLIER", departmentCode: "LAW_COMPLIANCE", seniority: 60}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentName: "Law compliance", seniority: 60, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Ruby Rogers", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "LAW_COMPLIANCE", seniority: 60}
     ]});
 
 db.users.insert({id: 7, version: 1, userType: "E", uid: "dryiwn36", password: "changeme", fullName: "Joyce Cruz",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentLabel: "Shuttle compliance", seniority: 60, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Joyce Cruz", profileCode: "AGR_VISA_APPLIER", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 60}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentName: "Shuttle compliance", seniority: 60, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Joyce Cruz", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 60}
     ]});
 
 db.users.insert({id: 8, version: 1, userType: "E", uid: "rajoqm34", password: "changeme", fullName: "Jack Henry",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentLabel: "Goods inspection", seniority: 60, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Jack Henry", profileCode: "AGR_VISA_APPLIER", departmentCode: "GOODS_INSPECTION", seniority: 60}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentName: "Goods inspection", seniority: 60, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Jack Henry", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "GOODS_INSPECTION", seniority: 60}
     ]});
 
 db.users.insert({id: 9, version: 1, userType: "E", uid: "gjixqn84", password: "changeme", fullName: "Denise Rodriguez",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentLabel: "Journey supervision", seniority: 60, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Denise Rodriguez", profileCode: "AGR_VISA_APPLIER", departmentCode: "JOURNEY_SUPERVISION", seniority: 60}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentName: "Journey supervision", seniority: 60, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Denise Rodriguez", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "JOURNEY_SUPERVISION", seniority: 60}
     ]});
 
 db.users.insert({id: 10, version: 1, userType: "E", uid: "pytlvi73", password: "changeme", fullName: "Justin Williamson",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "HR", departmentLabel: "Human resources", seniority: 60, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Justin Williamson", profileCode: "AGR_VISA_APPLIER", departmentCode: "HR", seniority: 60}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "HR", departmentName: "Human resources", seniority: 60, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Justin Williamson", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "HR", seniority: 60}
     ]});
 
 db.users.insert({id: 11, version: 1, userType: "E", uid: "qlomny06", password: "changeme", fullName: "Gregory Bradley",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentLabel: "Law compliance", seniority: 90, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Gregory Bradley", profileCode: "AGR_VISA_APPLIER", departmentCode: "LAW_COMPLIANCE", seniority: 90}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "LAW_COMPLIANCE", departmentName: "Law compliance", seniority: 90, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Gregory Bradley", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "LAW_COMPLIANCE", seniority: 90}
     ]});
 
 db.users.insert({id: 12, version: 1, userType: "E", uid: "xkmvis52", password: "changeme", fullName: "Julie Lopez",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentLabel: "Shuttle compliance", seniority: 90, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Julie Lopez", profileCode: "AGR_VISA_APPLIER", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 90}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "SHUTTLE_COMPLIANCE", departmentName: "Shuttle compliance", seniority: 90, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Julie Lopez", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "SHUTTLE_COMPLIANCE", seniority: 90}
     ]});
 
 db.users.insert({id: 13, version: 1, userType: "E", uid: "kvieon14", password: "changeme", fullName: "Maria Dunn",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentLabel: "Goods inspection", seniority: 90, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Maria Dunn", profileCode: "AGR_VISA_APPLIER", departmentCode: "GOODS_INSPECTION", seniority: 90}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "GOODS_INSPECTION", departmentName: "Goods inspection", seniority: 90, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Maria Dunn", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "GOODS_INSPECTION", seniority: 90}
     ]});
 
 db.users.insert({id: 14, version: 1, userType: "E", uid: "figlva46", password: "changeme", fullName: "Randy Richards",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentLabel: "Journey supervision", seniority: 90, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Randy Richards", profileCode: "AGR_VISA_APPLIER", departmentCode: "JOURNEY_SUPERVISION", seniority: 90}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "JOURNEY_SUPERVISION", departmentName: "Journey supervision", seniority: 90, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Randy Richards", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "JOURNEY_SUPERVISION", seniority: 90}
     ]});
 
 db.users.insert({id: 15, version: 1, userType: "E", uid: "ponley99", password: "changeme", fullName: "Russell Burke",
-    profileCode: "AGR_VISA_APPLIER", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
-    updateUser: "script", departmentCode: "HR", departmentLabel: "Human resources", seniority: 90, history: [
-        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Russell Burke", profileCode: "AGR_VISA_APPLIER", departmentCode: "HR", seniority: 90}
+    profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", creationDate: "20/12/2015 17:54:05", creationUser: "script", updateDate: "20/12/2015 17:54:05",
+    updateUser: "script", departmentCode: "HR", departmentName: "Human resources", seniority: 90, history: [
+        {version: 1, versionDate: "20/12/2015 17:54:05", versionUser: "script", fullName: "Russell Burke", profileCode: "AGR_VISA_APPLIER", profileName: "Agreement visa applier", departmentCode: "HR", seniority: 90}
     ]});
 
 // ==== Customers ====

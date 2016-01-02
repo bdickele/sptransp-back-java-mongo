@@ -2,10 +2,12 @@ package org.bdickele.sptransp.repository;
 
 import org.bdickele.sptransp.dto.SequenceDTO;
 import org.jongo.MongoCollection;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Bertrand DICKELE
  */
+@Repository
 public class SequenceRepository extends AbstractRepository {
 
     public static final String SEQUENCE_REQUEST = "requestId";

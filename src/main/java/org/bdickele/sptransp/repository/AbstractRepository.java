@@ -38,12 +38,20 @@ public class AbstractRepository {
         return jongo.getCollection(collectionName);
     }
 
+    protected int getSize(MongoCursor<?> cursor) {
+        try {
+            return cursor.count();
+        } finally {
+            try {
+                cursor.close();
+            } catch (IOException ioe) {}
+        }
+    }
+
     protected <T> List<T> getList(MongoCursor<T> cursor) {
         List<T> list = new ArrayList<>();
         try {
-            while (cursor.hasNext()) {
-                list.add(cursor.next());
-            }
+            cursor.forEach(e -> list.add(e));
         } finally {
             try {
                 cursor.close();
